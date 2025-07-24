@@ -39,7 +39,7 @@ contract TimeLock {
         bytes32 txHash = keccak256(abi.encode(target, value, signature, data, eta));
         require(queuedTransactions[txHash], "Transaction not queued");
         require(block.timestamp >= eta, "Too early");
-        require(block.timestamp <= eta + GRACE_PERIOD, "Transaction is stale");
+        require(block.timestamp <= eta + GRACE_PERIOD, "Transaction is invalidated");
 
         queuedTransactions[txHash] = false;
 
